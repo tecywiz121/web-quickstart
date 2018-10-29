@@ -6,3 +6,8 @@ edition = "2018"
 publish = false
 
 [dependencies]
+error-chain = "0.12.0"
+diesel = { version = "1.0.0", features = ["sqlite", "r2d2"] }
+
+rocket = "0.3.17"
+rocket_codegen = "0.3.17"
