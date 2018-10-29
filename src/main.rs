@@ -1,6 +1,19 @@
-mod db;
+#![allow(proc_macro_derive_resolution_fallback)] // Should be fixed in the next major Rocket version
+#![feature(plugin)]
+#![plugin(rocket_codegen)]
 
-use rocket;
+#[macro_use]
+extern crate diesel;
+extern crate rocket;
+#[macro_use]
+extern crate serde_derive;
+#[macro_use]
+extern crate typed_builder;
+
+mod db;
+mod models;
+mod schema;
+
 use rocket::fairing::AdHoc;
 
 fn main() {
