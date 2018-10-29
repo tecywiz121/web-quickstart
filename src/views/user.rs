@@ -2,12 +2,19 @@ use crate::db::Db;
 use crate::errors::*;
 use crate::models::user::User;
 
+use rocket_contrib::Template;
+
 #[get("/<user_id>")]
-pub fn detail(user_id: i32, db: Db) -> Result<Option<String>> {
+pub fn detail(user_id: i32, db: Db) -> Result<Option<Template>> {
     let user = match User::by_id(&db, user_id)? {
         Some(x) => x,
         None => return Ok(None),
     };
 
-    Ok(Some(user.email().to_owned()))
+    #[derive(Serialize)]
+    struct Context {
+        user: User,
+    }
+
+    Ok(Some(Template::render("user/detail", Context { user })))
 }

@@ -20,9 +20,13 @@ mod views;
 
 use rocket::fairing::AdHoc;
 
+use rocket_contrib::Template;
+
 fn main() {
     rocket::ignite()
+        .mount("/", routes![views::static_page::index])
         .mount("/users", routes![views::user::detail])
+        .attach(Template::fairing())
         .attach(AdHoc::on_attach(|rocket| {
             let db_url = rocket
                 .config()

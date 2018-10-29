@@ -5,7 +5,7 @@ use diesel::prelude::*;
 
 use std::borrow::Cow;
 
-#[derive(Debug, Queryable, Identifiable, PartialEq)]
+#[derive(Debug, Serialize, Queryable, Identifiable, PartialEq)]
 pub struct User {
     id: i32,
     email: String,
