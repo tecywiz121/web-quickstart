@@ -27,4 +27,4 @@ version = "0.4.0-dev"
 git = "https://github.com/SergioBenitez/Rocket"
 version = "0.4.0-dev"
 default-features = false
-features = ["handlebars_templates"]
+features = ["handlebars_templates", "serve", "diesel_sqlite_pool"]

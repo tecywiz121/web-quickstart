@@ -1,0 +1,2 @@
+[global.databases]
+web_quickstart = { url = "db.sqlite" }

@@ -8,6 +8,8 @@ extern crate error_chain;
 #[macro_use]
 extern crate rocket;
 #[macro_use]
+extern crate rocket_contrib;
+#[macro_use]
 extern crate serde_derive;
 #[macro_use]
 extern crate typed_builder;
@@ -18,8 +20,6 @@ mod models;
 mod schema;
 mod views;
 
-use rocket::fairing::AdHoc;
-
 use rocket_contrib::templates::Template;
 
 fn main() {
@@ -27,18 +27,6 @@ fn main() {
         .mount("/", routes![views::static_page::index])
         .mount("/users", routes![views::user::detail])
         .attach(Template::fairing())
-        .attach(AdHoc::on_attach("db", |rocket| {
-            let db_url = rocket
-                .config()
-                .get_str("database_url")
-                .unwrap_or(concat!(env!("CARGO_MANIFEST_DIR"), "/db.sqlite"));
-
-            let pool = match db::create_pool(db_url) {
-                Ok(x) => x,
-                Err(_) => return Err(rocket),
-            };
-
-            Ok(rocket.manage(pool))
-        }))
+        .attach(db::Db::fairing())
         .launch();
 }
