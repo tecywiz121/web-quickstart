@@ -12,9 +12,31 @@
         <!--[if gt IE 8]><!-->
             <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css" integrity="sha384-b92sF+wDNTHrfEtRaYo+EpcA8FUyHOSXrdxKc9XB9kaaX1rSQAgMevW6cYeE5Bdv" crossorigin="anonymous">
         <!--<![endif]-->
+        <link rel="stylesheet" href="/static/base.css">
     </head>
 
     <body>
-        {{~> base_body }}
+        <div id="header">
+            <div class="pure-menu pure-menu-horizontal">
+                <a href="" class="pure-menu-heading">
+                    Web Quickstart
+                </a><!-- /.pure-menu-heading -->
+
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item">
+                        <a href="/demo-1" class="pure-menu-link">
+                            Demo 1
+                        </a><!-- /.pure-menu-link -->
+                    </li><!-- /.pure-menu-item -->
+                </ul><!-- /.pure-menu-list -->
+            </div><!-- /.pure-menu -->
+        </div><!-- /#header -->
+        <div id="layout" class="content pure-g">
+            <div class="pure-u pure-u-md-2-24 pure-u-lg-1-5"></div>
+            <div id="base_body" class="pure-u pure-u-md-20-24 pure-u-lg-3-5">
+                {{~> base_body }}
+            </div><!-- /#base_body -->
+            <div class="pure-u pure-u-md-2-24 pure-u-lg-1-5"></div>
+        </div><!-- /#layout -->
     </body>
 </html>

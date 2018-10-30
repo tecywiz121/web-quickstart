@@ -21,10 +21,12 @@ mod schema;
 mod views;
 
 use rocket_contrib::templates::Template;
+use rocket_contrib::serve::StaticFiles;
 
 fn main() {
     rocket::ignite()
-        .mount("/", routes![views::static_page::index])
+        .mount("/", routes![views::static_page::index, views::static_page::demo1])
+        .mount("/static", StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/static")))
         .mount("/users", routes![views::user::detail])
         .attach(Template::fairing())
         .attach(db::Db::fairing())
