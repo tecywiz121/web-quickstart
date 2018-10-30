@@ -3,8 +3,6 @@ use crate::schema::users;
 
 use diesel::prelude::*;
 
-use std::borrow::Cow;
-
 #[derive(Debug, Serialize, Queryable, Identifiable, PartialEq)]
 pub struct User {
     id: i32,
@@ -12,6 +10,18 @@ pub struct User {
 }
 
 impl User {
+    pub fn by_email(c: &SqliteConnection, by_email: &str) -> Result<Option<User>> {
+        use self::users::dsl::*;
+
+        let mut user = users
+            .filter(email.eq(by_email))
+            .limit(1)
+            .load::<User>(c)
+            .chain_err(|| "failed to find user by email")?;
+
+        Ok(user.pop())
+    }
+
     pub fn by_id(c: &SqliteConnection, by_id: i32) -> Result<Option<User>> {
         use self::users::dsl::*;
 
@@ -33,8 +43,14 @@ impl User {
     }
 }
 
-#[derive(Debug, Deserialize, Insertable, TypedBuilder)]
+#[derive(Debug, Deserialize, Insertable, TypedBuilder, FromForm)]
 #[table_name = "users"]
-pub struct CreateUser<'a> {
-    email: Cow<'a, str>,
+pub struct CreateUser {
+    email: String,
+}
+
+impl CreateUser {
+    pub fn email(&self) -> &str {
+        &self.email
+    }
 }

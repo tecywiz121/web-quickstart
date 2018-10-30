@@ -27,7 +27,7 @@ fn main() {
     rocket::ignite()
         .mount("/", routes![views::static_page::index, views::static_page::demo1])
         .mount("/static", StaticFiles::from(concat!(env!("CARGO_MANIFEST_DIR"), "/static")))
-        .mount("/users", routes![views::user::detail])
+        .mount("/users", routes![views::user::detail, views::user::create, views::user::create_form])
         .attach(Template::fairing())
         .attach(db::Db::fairing())
         .launch();

@@ -1,0 +1,15 @@
+{{#*inline "content"}}
+    <h2>Register</h2>
+    <form class="pure-form pure-form-aligned" method="POST" action="/users">
+        <fieldset>
+            <div class="pure-control-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email">
+            </div><!-- /.pure-control-group -->
+            <div class="pure-controls">
+                <button class="pure-button pure-button-primary" type="submit">Register!</button>
+            </div><!-- /.pure-control-group -->
+        </fieldset>
+    </form>
+{{/inline}}
+{{~> user/base }}
