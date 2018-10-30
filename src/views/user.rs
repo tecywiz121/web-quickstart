@@ -2,7 +2,7 @@ use crate::db::Db;
 use crate::errors::*;
 use crate::models::user::User;
 
-use rocket_contrib::Template;
+use rocket_contrib::templates::Template;
 
 #[get("/<user_id>")]
 pub fn detail(user_id: i32, db: Db) -> Result<Option<Template>> {
